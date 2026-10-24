@@ -1,4 +1,10 @@
+
 const lista = document.querySelector('#lista')
+
+
+window.addEventListener("load", () => {
+    registerWS()
+})
 
 fetch("https://jsonplaceholder.typicode.com/users")
 .then(response => response.json())
@@ -13,4 +19,16 @@ fetch("https://jsonplaceholder.typicode.com/users")
         `
     });
     lista.innerHTML=html
-})
+});
+
+async function registerWS() {
+    if("serviceWorker" in navigator) {
+        try {
+            await navigator.serviceWorker.register("./sw.js")
+        }
+        catch (e) 
+        {
+            console.log("Fallo en el registro del service worker")       
+        }
+    }
+}
